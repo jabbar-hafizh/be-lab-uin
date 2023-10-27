@@ -29,6 +29,10 @@ const typeDefs = `#graphql
     roles: [EnumUserRole]
     NIP: String
     signature_image_path: String
+    email: String
+    password: String
+    auth_token: [String]
+    salt: String
     created_at: String
     updated_at: String
   }
@@ -47,6 +51,10 @@ const typeDefs = `#graphql
     roles: [EnumUserRole]
     NIP: String
     signature_image_path: String
+    email: String
+    password: String
+    auth_token: [String]
+    salt: String
     created_at: String
     updated_at: String
   }
