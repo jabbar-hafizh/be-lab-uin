@@ -1,0 +1,26 @@
+{
+  "semi": false,
+  "overrides": [
+    {
+      "files": "*.js",
+      "options": {
+        "trailingComma": "none",
+        "arrowParens": "avoid",
+        "singleQuote": true,
+        "printWidth": 100,
+        "useTabs": false,
+        "tabWidth": 2,
+        "semi": false,
+        "importOrder": [
+          "^(next/(.*)$)|^(next$)",
+          "<THIRD_PARTY_MODULES>",
+          "next-seo.config",
+          "^@fontsource/(.*)$",
+          "^[./]"
+        ],
+        "importOrderSeparation": true,
+        "importOrderSortSpecifiers": true
+      }
+    }
+  ]
+}

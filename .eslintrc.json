@@ -1,0 +1,22 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": "eslint:recommended",
+  "parserOptions": {
+    "ecmaVersion": "latest"
+  },
+  "rules": {
+    "max-lines": [
+      1,
+      { "max": 500, "skipBlankLines": true, "skipComments": true }
+    ],
+    "no-console": 1,
+    "no-debugger": 1,
+    "no-prototype-builtins": 0,
+    "no-unused-vars": 1,
+    "no-case-declarations": 0
+  }
+}
