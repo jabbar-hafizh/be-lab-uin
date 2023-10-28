@@ -1,5 +1,4 @@
 import UserModel from './user.model.js'
-
 import {
   compare,
   encrypt,
@@ -7,6 +6,7 @@ import {
   makeSalt,
   validateEmail
 } from '../../utils/common.js'
+import UserService from './user.service.js'
 
 // QUERY
 async function getAllUsers(parent, {}, ctx) {
@@ -39,6 +39,8 @@ async function register(parent, { user_input }) {
     password: encrypted_password,
     salt
   })
+
+  UserService.sendEmailVerification(user.user_id)
 
   return user
 }
@@ -74,6 +76,12 @@ async function editMe(parent, { user_input }, ctx) {
   ).lean()
 }
 
+async function sendEmailVerification(parent, {}, ctx) {
+  UserService.sendEmailVerification(ctx.user_id)
+
+  return 'Email verification successfully sent!'
+}
+
 const Query = {
   getAllUsers,
   getOneUser,
@@ -84,7 +92,8 @@ const Mutation = {
   register,
   updateUser,
   login,
-  editMe
+  editMe,
+  sendEmailVerification
 }
 
 const resolvers = {

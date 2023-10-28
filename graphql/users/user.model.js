@@ -41,7 +41,11 @@ const userSchema = new Schema(
         default: []
       }
     ],
-    salt: { type: String }
+    salt: { type: String },
+    verification_time: { type: String },
+    verification_token: { type: String },
+    forgot_time: { type: String },
+    forgot_token: { type: String }
   },
   {
     timestamps: true,

@@ -10,6 +10,7 @@ const typeDefs = `#graphql
     updateUser(_id: ID, user_input: UserInput): User
     login(email: String!, password: String!): Login
     editMe(user_input: UserInput): User
+    sendEmailVerification: String
   }
 
   input UserInput {

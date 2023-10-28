@@ -30,7 +30,8 @@ const authMiddleware = {
   Mutation: {
     updateUser: requireAuth,
     editMe: requireAuth,
-    createUpdateTest: requireAuth
+    createUpdateTest: requireAuth,
+    sendEmailVerification: requireAuth
   }
 }
 
