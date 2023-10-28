@@ -83,7 +83,7 @@ async function updateUser(parent, { _id, user_input }) {
 }
 
 async function login(parent, { email, password }) {
-  const user = await UserModel.findOne({ email }).select('_id email password salt')
+  const user = await UserModel.findOne({ email }).lean()
   if (!user) throw new Error('User Not Found')
 
   const matched = compare(password, user.password, user.salt)
