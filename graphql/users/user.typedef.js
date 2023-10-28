@@ -2,6 +2,7 @@ const typeDefs = `#graphql
   extend type Query {
     getOneUser(_id: ID): User
     getAllUsers: [User]
+    getMe: User
   }
 
   extend type Mutation {

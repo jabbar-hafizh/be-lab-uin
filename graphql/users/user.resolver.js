@@ -17,6 +17,10 @@ async function getOneUser(parent, { _id }) {
   return await UserModel.findById(_id).lean()
 }
 
+async function getMe(parent, {}, ctx) {
+  return await UserModel.findById(ctx.user_id).lean()
+}
+
 // MUTATION
 async function register(parent, { user_input }) {
   user_input.email = user_input.email.toLowerCase()
@@ -72,7 +76,8 @@ async function editMe(parent, { user_input }, ctx) {
 
 const Query = {
   getAllUsers,
-  getOneUser
+  getOneUser,
+  getMe
 }
 
 const Mutation = {

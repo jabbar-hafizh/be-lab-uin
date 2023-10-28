@@ -22,11 +22,12 @@ async function requireAuth(resolver, parent, args, ctx) {
 const authMiddleware = {
   Query: {
     getAllUsers: requireAuth,
-    getOneUser: requireAuth
+    getOneUser: requireAuth,
+    getMe: requireAuth
   },
   Mutation: {
     updateUser: requireAuth,
-    editMe: requireAuth,
+    editMe: requireAuth
   }
 }
 
