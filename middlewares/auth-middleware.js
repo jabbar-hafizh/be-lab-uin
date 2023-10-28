@@ -23,11 +23,14 @@ const authMiddleware = {
   Query: {
     getAllUsers: requireAuth,
     getOneUser: requireAuth,
-    getMe: requireAuth
+    getMe: requireAuth,
+    getAllTests: requireAuth,
+    getOneTest: requireAuth
   },
   Mutation: {
     updateUser: requireAuth,
-    editMe: requireAuth
+    editMe: requireAuth,
+    createUpdateTest: requireAuth
   }
 }
 
