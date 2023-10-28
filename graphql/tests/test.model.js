@@ -26,36 +26,30 @@ const testSchema = new Schema(
     ],
     unit_price: { type: Number },
     total_price: { type: Number },
-    payment_status: [
-      {
-        type: String,
-        enum: ['belum_diterima', 'sudah_diterima']
-      }
-    ],
-    sample_status: [
-      {
-        type: String,
-        enum: ['belum_diterima', 'sudah_diterima']
-      }
-    ],
-    current_status: [
-      {
-        type: String,
-        enum: [
-          'Draft',
-          'Formulir_terkirim',
-          'Formulir_ditolak',
-          'Formulir_diterima',
-          'Pembayaran_dan_sampel_diterima',
-          'Diserahkan_ke_analis',
-          'Diserahkan_ke_penyelia',
-          'Selesai_diuji',
-          'Disetujui_korbid',
-          'Disetujui_Ka_PLT',
-          'Dibatalkan'
-        ]
-      }
-    ],
+    payment_status: {
+      type: String,
+      enum: ['belum_diterima', 'sudah_diterima']
+    },
+    sample_status: {
+      type: String,
+      enum: ['belum_diterima', 'sudah_diterima']
+    },
+    current_status: {
+      type: String,
+      enum: [
+        'Draft',
+        'Formulir_terkirim',
+        'Formulir_ditolak',
+        'Formulir_diterima',
+        'Pembayaran_dan_sampel_diterima',
+        'Diserahkan_ke_analis',
+        'Diserahkan_ke_penyelia',
+        'Selesai_diuji',
+        'Disetujui_korbid',
+        'Disetujui_Ka_PLT',
+        'Dibatalkan'
+      ]
+    },
     histories: [
       {
         status: {
