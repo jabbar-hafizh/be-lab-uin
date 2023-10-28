@@ -13,8 +13,8 @@ const typeDefs = `#graphql
     sample_name: String
     sample_quantity: Int
     sample_type: EnumTestSampleType
-    samples: [ID]
-    test_parameters: [ID]
+    samples: [SampleInput]
+    test_parameters: [TestParameterInput]
     unit_price: Int
     total_price: Int
     payment_status: EnumTestPaymentStatus

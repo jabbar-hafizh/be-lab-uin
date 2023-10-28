@@ -32,7 +32,8 @@ const authMiddleware = {
     editMe: requireAuth,
     createUpdateTest: requireAuth,
     sendEmailVerification: requireAuth,
-    createUser: requireAuth
+    createUser: requireAuth,
+    createUpdateTest: requireAuth
   }
 }
 

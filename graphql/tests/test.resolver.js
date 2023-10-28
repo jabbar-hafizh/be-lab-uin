@@ -1,3 +1,7 @@
+import moment from 'moment/moment.js'
+
+import SampleModel from '../samples/sample.model.js'
+import TestParameterModel from '../test_parameters/test_parameter.model.js'
 import TestModel from './test.model.js'
 
 // QUERY
@@ -10,10 +14,53 @@ async function getOneTest(parent, { _id }) {
 }
 
 // MUTATION
-async function createUpdateTest(parent, { _id, test_input }) {
+async function createUpdateTest(parent, { _id, test_input }, ctx) {
   let test
+  const total_tests = await TestModel.count({
+    createdAt: {
+      $gte: moment().startOf('day').toDate(),
+      $lte: moment().endOf('day').toDate()
+    }
+  })
 
   if (!_id) {
+    test_input.id_test =
+      moment().format('YYYYMMDD') + String(total_tests + 1).padStart(5, '0')
+
+    const test_parameter_ids = []
+    if (test_input?.test_parameters?.length) {
+      for (const each_test_parameter of test_input.test_parameters) {
+        const test_parameter = await TestParameterModel.create(each_test_parameter)
+        test_parameter_ids.push(test_parameter._id)
+      }
+    }
+
+    const sample_ids = []
+    if (test_input?.samples?.length) {
+      for (const [each_sample_index, each_sample] of test_input.samples.entries()) {
+        each_sample.lab_label = `${test_input.id_test}-${String(each_sample_index + 1)}`
+        each_sample.results = []
+        for (const each_test_parameter_id of test_parameter_ids) {
+          each_sample.results.push({
+            test_parameter: each_test_parameter_id
+          })
+        }
+        const sample = await SampleModel.create(each_sample)
+        sample_ids.push(sample._id)
+      }
+    }
+
+    test_input.samples = sample_ids
+    test_input.test_parameters = test_parameter_ids
+    test_input.buyer = ctx.user_id
+    test_input.histories = [
+      {
+        status: 'Draft',
+        updated_by: ctx.user_id,
+        date: moment().format('DD-MM-YYYY HH:mm')
+      }
+    ]
+
     test = await TestModel.create(test_input)
   } else {
     test = await TestModel.findByIdAndUpdate(

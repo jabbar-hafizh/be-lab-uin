@@ -6,12 +6,10 @@ const testSchema = new Schema(
     id_test: { type: String },
     sample_name: { type: String },
     sample_quantity: { type: Number },
-    sample_type: [
-      {
-        type: String,
-        enum: ['cair', 'padat']
-      }
-    ],
+    sample_type: {
+      type: String,
+      enum: ['cair', 'padat']
+    },
     samples: [
       {
         type: Schema.ObjectId,
@@ -28,14 +26,17 @@ const testSchema = new Schema(
     total_price: { type: Number },
     payment_status: {
       type: String,
-      enum: ['belum_diterima', 'sudah_diterima']
+      enum: ['belum_diterima', 'sudah_diterima'],
+      default: 'belum_diterima'
     },
     sample_status: {
       type: String,
-      enum: ['belum_diterima', 'sudah_diterima']
+      enum: ['belum_diterima', 'sudah_diterima'],
+      default: 'belum_diterima'
     },
     current_status: {
       type: String,
+      default: 'Draft',
       enum: [
         'Draft',
         'Formulir_terkirim',
