@@ -68,13 +68,20 @@ async function createUser(parent, { user_input }, ctx) {
   const user = await UserModel.create({
     ...user_input,
     password: encrypted_password,
-    salt
+    salt,
+    is_email_verified: true
   })
 
   return user
 }
 
 async function updateUser(parent, { _id, user_input }) {
+  const user = await UserModel.findById(_id).lean()
+
+  if (user_input.password) {
+    user_input.password = encrypt(user_input.password, user.salt)
+  }
+
   return await UserModel.findByIdAndUpdate(
     _id,
     { $set: user_input },
@@ -98,6 +105,16 @@ async function login(parent, { email, password }) {
 }
 
 async function editMe(parent, { user_input }, ctx) {
+  const user = await UserModel.findById(ctx.user_id).lean()
+
+  if (user_input.password) {
+    user_input.password = encrypt(user_input.password, user.salt)
+  }
+
+  if (user_input.email && user_input.email.toLowerCase() !== user.email) {
+    user_input.is_email_verified = false
+  }
+
   return await UserModel.findByIdAndUpdate(
     ctx.user_id,
     { $set: user_input },
