@@ -42,8 +42,8 @@ const typeDefs = `#graphql
     korbid: User
     dekan: User
     buyer: User
-    created_at: String
-    updated_at: String
+    createdAt: String
+    updatedAt: String
   }
 
   type TestHistory {
