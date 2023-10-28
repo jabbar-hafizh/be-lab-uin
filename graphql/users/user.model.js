@@ -36,12 +36,6 @@ const userSchema = new Schema(
     signature_image_path: { type: String },
     email: { type: String },
     password: { type: String },
-    auth_token: [
-      {
-        type: String,
-        default: []
-      }
-    ],
     salt: { type: String },
     verification_time: { type: String },
     verification_token: { type: String },

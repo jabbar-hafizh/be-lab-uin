@@ -20,7 +20,6 @@ const typeDefs = `#graphql
     payment_status: EnumTestPaymentStatus
     sample_status: EnumTestSampleStatus
     current_status: EnumTestCurrentStatus
-    histories: [EnumTestCurrentStatus]
     korbid: ID
     dekan: ID
     buyer: ID
@@ -39,12 +38,19 @@ const typeDefs = `#graphql
     payment_status: EnumTestPaymentStatus
     sample_status: EnumTestSampleStatus
     current_status: EnumTestCurrentStatus
-    histories: [EnumTestCurrentStatus]
+    histories: [TestHistory]
     korbid: User
     dekan: User
     buyer: User
     created_at: String
     updated_at: String
+  }
+
+  type TestHistory {
+    status: EnumTestCurrentStatus
+    remark: String
+    updated_by: User
+    date: String
   }
 
   enum EnumTestSampleType {

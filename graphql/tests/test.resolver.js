@@ -29,10 +29,10 @@ async function createUpdateTest(parent, { _id, test_input }) {
 // LOADER
 async function korbid(parent, args, context) {
   if (parent.korbid) {
-    return await context.loaders.UserLoader.load(parent.korbid);
+    return await context.loaders.UserLoader.load(parent.korbid)
   }
 
-  return null;
+  return null
 }
 
 async function dekan(parent, args, context) {
@@ -51,6 +51,30 @@ async function buyer(parent, args, context) {
   return null
 }
 
+async function samples(parent, args, context) {
+  if (parent.samples) {
+    return await context.loaders.SampleLoader.loadMany(parent.samples)
+  }
+
+  return null
+}
+
+async function test_parameters(parent, args, context) {
+  if (parent.test_parameters) {
+    return await context.loaders.TestParameterLoader.loadMany(parent.test_parameters)
+  }
+
+  return null
+}
+
+async function updated_by(parent, args, context) {
+  if (parent.updated_by) {
+    return await context.loaders.UserLoader.load(parent.updated_by)
+  }
+
+  return null
+}
+
 const Query = {
   getAllTests,
   getOneTest
@@ -63,13 +87,20 @@ const Mutation = {
 const Test = {
   korbid,
   dekan,
-  buyer
+  buyer,
+  samples,
+  test_parameters
+}
+
+const TestHistory = {
+  updated_by
 }
 
 const resolvers = {
   Query,
   Mutation,
-  Test
+  Test,
+  TestHistory
 }
 
 export default resolvers
