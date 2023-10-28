@@ -84,10 +84,10 @@ async function updateUser(parent, { _id, user_input }) {
 
 async function login(parent, { email, password }) {
   const user = await UserModel.findOne({ email }).lean()
-  if (!user) throw new Error('User Not Found')
+  if (!user) throw new Error('Credential Not Valid')
 
   const matched = compare(password, user.password, user.salt)
-  if (!matched) throw new Error('Password Not Match')
+  if (!matched) throw new Error('Credential Not Valid')
 
   const token = getToken({ _id: user._id, email: user.email }, '1d')
 
