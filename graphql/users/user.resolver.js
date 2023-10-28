@@ -47,6 +47,33 @@ async function register(parent, { user_input }) {
   return user
 }
 
+async function createUser(parent, { user_input }, ctx) {
+  const user_logged_in = await UserModel.findOne({
+    _id: ctx.user_id,
+    roles: { $in: ['Super_Admin'] }
+  }).lean()
+  if (!user_logged_in) throw new Error('UnAuthorized')
+
+  user_input.email = user_input.email.toLowerCase()
+
+  const is_valid_email = validateEmail(user_input.email)
+  if (!is_valid_email) throw new Error('Email Invalid')
+
+  const existing_user = await UserModel.findOne({ email: user_input.email })
+  if (existing_user) throw new Error('Email Exists')
+
+  const salt = makeSalt()
+  const encrypted_password = encrypt(user_input.password, salt)
+
+  const user = await UserModel.create({
+    ...user_input,
+    password: encrypted_password,
+    salt
+  })
+
+  return user
+}
+
 async function updateUser(parent, { _id, user_input }) {
   return await UserModel.findByIdAndUpdate(
     _id,
@@ -130,6 +157,35 @@ async function checkTokenResetPassword(parent, { token }) {
   return 'Token Valid!'
 }
 
+async function resetPassword(parent, { new_password, token }) {
+  const user = await UserModel.findOne({
+    reset_password_token: token
+  })
+
+  if (!user) throw new Error('Link Invalid')
+
+  if (new Date(user.reset_password_time) - new Date() < 0) {
+    throw new Error('Link Expired')
+  }
+
+  const salt = makeSalt()
+  const encrypted_password = encrypt(new_password, salt)
+
+  await UserModel.updateOne(
+    {
+      _id: user._id
+    },
+    {
+      $set: {
+        password: encrypted_password
+      }
+    },
+    { new: true }
+  )
+
+  return 'Password successfully updated!'
+}
+
 const Query = {
   getAllUsers,
   getOneUser,
@@ -144,7 +200,9 @@ const Mutation = {
   sendEmailVerification,
   verifyEmail,
   sendEmailResetPassword,
-  checkTokenResetPassword
+  checkTokenResetPassword,
+  resetPassword,
+  createUser
 }
 
 const resolvers = {

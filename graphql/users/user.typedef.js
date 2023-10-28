@@ -7,6 +7,7 @@ const typeDefs = `#graphql
 
   extend type Mutation {
     register(user_input: UserInput): User
+    createUser(user_input: UserInput): User
     updateUser(_id: ID, user_input: UserInput): User
     login(email: String!, password: String!): Login
     editMe(user_input: UserInput): User
@@ -14,6 +15,7 @@ const typeDefs = `#graphql
     verifyEmail(token: String!): String
     sendEmailResetPassword(email: String!): String
     checkTokenResetPassword(token: String!): String
+    resetPassword(new_password: String!, token: String!): String
   }
 
   input UserInput {
