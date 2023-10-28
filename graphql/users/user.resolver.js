@@ -62,6 +62,14 @@ async function login(parent, { email, password }) {
   }
 }
 
+async function editMe(parent, { user_input }, ctx) {
+  return await UserModel.findByIdAndUpdate(
+    ctx.user_id,
+    { $set: user_input },
+    { new: true }
+  ).lean()
+}
+
 const Query = {
   getAllUsers,
   getOneUser
@@ -70,7 +78,8 @@ const Query = {
 const Mutation = {
   register,
   updateUser,
-  login
+  login,
+  editMe
 }
 
 const resolvers = {

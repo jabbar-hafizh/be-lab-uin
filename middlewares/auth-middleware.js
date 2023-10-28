@@ -25,7 +25,8 @@ const authMiddleware = {
     getOneUser: requireAuth
   },
   Mutation: {
-    updateUser: requireAuth
+    updateUser: requireAuth,
+    editMe: requireAuth,
   }
 }
 

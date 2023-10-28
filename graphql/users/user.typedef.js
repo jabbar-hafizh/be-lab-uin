@@ -8,6 +8,7 @@ const typeDefs = `#graphql
     register(user_input: UserInput): User
     updateUser(_id: ID, user_input: UserInput): User
     login(email: String!, password: String!): Login
+    editMe(user_input: UserInput): User
   }
 
   input UserInput {
