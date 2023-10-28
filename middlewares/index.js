@@ -1,7 +1,3 @@
-const authMiddleware = require('./auth-middleware');
-const userLogMiddleware = require('./user_log-middleware');
+import authMiddleware from './auth-middleware.js'
 
-module.exports = {
-  authMiddleware,
-  userLogMiddleware,
-};
+export { authMiddleware }

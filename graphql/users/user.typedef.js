@@ -7,13 +7,7 @@ const typeDefs = `#graphql
   extend type Mutation {
     register(user_input: UserInput): User
     updateUser(_id: ID, user_input: UserInput): User
-    login(email: String, password: String): Login
-  }
-
-  enum EnumBaseResponseStatus {
-    failed
-    error
-    success
+    login(email: String!, password: String!): Login
   }
 
   input UserInput {
@@ -31,10 +25,6 @@ const typeDefs = `#graphql
     signature_image_path: String
     email: String
     password: String
-    auth_token: [String]
-    salt: String
-    created_at: String
-    updated_at: String
   }
 
   type User {
@@ -52,9 +42,6 @@ const typeDefs = `#graphql
     NIP: String
     signature_image_path: String
     email: String
-    password: String
-    auth_token: [String]
-    salt: String
     created_at: String
     updated_at: String
   }

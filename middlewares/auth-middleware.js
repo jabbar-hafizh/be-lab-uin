@@ -1,36 +1,32 @@
-const { AuthenticationError } = require('apollo-server-express')
-const { UserModel } = require('../graphql/users').default
-const { getUserId } = require('../utils/common')
+import UserModel from '../graphql/users/user.model.js'
+import { getUserId } from '../utils/common.js'
 
-const requireAuth = async (resolver, parent, args, ctx) => {
-  let Authorization = ctx.req.get('Authorization')
+async function requireAuth(resolver, parent, args, ctx) {
+  const Authorization = ctx.req.get('Authorization')
   if (!Authorization) {
-    throw new AuthenticationError('Authorization header is missing')
+    throw new Error('Authorization header is missing')
   }
-  let token = Authorization.replace('Bearer ', '')
 
-  token = token.replace(/"/g, '')
+  const token = Authorization.replace('Bearer ', '').replace(/"/g, '')
+  const user_id = getUserId(token)
 
-  let userId = getUserId(token)
-
-  let user = await UserModel.findOne({ _id: userId }).select('_id').lean()
+  const user = await UserModel.findOne({ _id: user_id }).select('_id').lean()
   if (!user) {
-    throw new AuthenticationError('UnAuthenticated')
+    throw new Error('UnAuthenticated')
   }
-  ctx.userId = user._id
+  ctx.user_id = user._id
 
   return resolver() //call the next resolver
 }
 
-let authMiddleware = {
+const authMiddleware = {
   Query: {
-    GetAllUsers: requireAuth
+    getAllUsers: requireAuth,
+    getOneUser: requireAuth
   },
   Mutation: {
-    CreateProduct: requireAuth,
-    CreateProductOrder: requireAuth,
-    SingleUpload: requireAuth
+    updateUser: requireAuth
   }
 }
 
-module.exports = authMiddleware
+export default authMiddleware

@@ -13,8 +13,4 @@ let resolvers = {}
 
 resolvers = merge(resolvers, user.resolvers)
 
-const graphQLIndex = {
-  typeDefs,
-  resolvers
-}
-export {resolvers, typeDefs}
+export { resolvers, typeDefs }
