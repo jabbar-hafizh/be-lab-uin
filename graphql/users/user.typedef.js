@@ -12,6 +12,8 @@ const typeDefs = `#graphql
     editMe(user_input: UserInput): User
     sendEmailVerification: String
     verifyEmail(token: String!): String
+    sendEmailResetPassword(email: String!): String
+    checkTokenResetPassword(token: String!): String
   }
 
   input UserInput {

@@ -1,14 +1,13 @@
-export const REQUEST_FORGOT_PASSWORD_N1 = {
-  when: 'When user request about forgot password',
+export const SEND_EMAIL_RESET_PASSWORD = {
+  when: 'When user request about reset password',
   language: '',
   from: '',
   to: '',
-  subject: 'Forgot Password Requested: ${first_name} ${last_name}',
-  html: 'utils/emails/templates/AUTH/RequestForgotPassword/EN.html',
+  subject: 'Reset Password',
+  html: 'utils/emails/templates/AUTH/SendEmailResetPassword/EN.html',
   requiredParams: {
-    first_name: '',
-    last_name: '',
-    new_password: ''
+    fullname: '',
+    email_reset_password_url: ''
   },
   fromId: null,
   toId: null

@@ -110,6 +110,26 @@ async function verifyEmail(parent, { token }) {
   return 'Email successfully verified!'
 }
 
+async function sendEmailResetPassword(parent, { email }) {
+  UserService.sendEmailResetPassword(email)
+
+  return 'Email reset password successfully sent!'
+}
+
+async function checkTokenResetPassword(parent, { token }) {
+  const user = await UserModel.findOne({
+    reset_password_token: token
+  })
+
+  if (!user) throw new Error('Link Invalid')
+
+  if (new Date(user.reset_password_time) - new Date() < 0) {
+    throw new Error('Link Expired')
+  }
+
+  return 'Token Valid!'
+}
+
 const Query = {
   getAllUsers,
   getOneUser,
@@ -122,7 +142,9 @@ const Mutation = {
   login,
   editMe,
   sendEmailVerification,
-  verifyEmail
+  verifyEmail,
+  sendEmailResetPassword,
+  checkTokenResetPassword
 }
 
 const resolvers = {

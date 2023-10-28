@@ -44,8 +44,8 @@ const userSchema = new Schema(
     salt: { type: String },
     verification_time: { type: String },
     verification_token: { type: String },
-    forgot_time: { type: String },
-    forgot_token: { type: String }
+    reset_password_time: { type: String },
+    reset_password_token: { type: String }
   },
   {
     timestamps: true,
