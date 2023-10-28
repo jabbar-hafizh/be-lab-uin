@@ -16,6 +16,7 @@ const userSchema = new Schema(
       {
         type: String,
         enum: [
+          'Umum',
           'Super_Admin',
           'Super_Admin_Layanan_Pengujian',
           'Admin_Pemesanan',
