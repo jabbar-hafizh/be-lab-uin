@@ -11,6 +11,7 @@ const typeDefs = `#graphql
     login(email: String!, password: String!): Login
     editMe(user_input: UserInput): User
     sendEmailVerification: String
+    verifyEmail(token: String!): String
   }
 
   input UserInput {
@@ -45,6 +46,7 @@ const typeDefs = `#graphql
     NIP: String
     signature_image_path: String
     email: String
+    token: String
     created_at: String
     updated_at: String
   }

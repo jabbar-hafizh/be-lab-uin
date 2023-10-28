@@ -42,6 +42,8 @@ async function register(parent, { user_input }) {
 
   UserService.sendEmailVerification(user.id)
 
+  user.token = getToken({ _id: user._id, email: user.email }, '1d')
+
   return user
 }
 
@@ -86,11 +88,26 @@ async function verifyEmail(parent, { token }) {
   const user = await UserModel.findOne({
     verification_token: token
   })
-  return await UserModel.findByIdAndUpdate(
-    ctx.user_id,
-    { $set: user_input },
+
+  if (!user) throw new Error('Link Invalid')
+
+  if (new Date(user.verification_time) - new Date() < 0) {
+    throw new Error('Link Expired')
+  }
+
+  await UserModel.findByIdAndUpdate(
+    user._id,
+    {
+      $set: {
+        verification_token: null,
+        verification_time: null,
+        is_email_verified: true
+      }
+    },
     { new: true }
   ).lean()
+
+  return 'Email successfully verified!'
 }
 
 const Query = {
@@ -104,7 +121,8 @@ const Mutation = {
   updateUser,
   login,
   editMe,
-  sendEmailVerification
+  sendEmailVerification,
+  verifyEmail
 }
 
 const resolvers = {
