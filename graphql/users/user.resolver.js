@@ -1,4 +1,3 @@
-import UserModel from './user.model.js'
 import {
   compare,
   encrypt,
@@ -6,6 +5,7 @@ import {
   makeSalt,
   validateEmail
 } from '../../utils/common.js'
+import UserModel from './user.model.js'
 import UserService from './user.service.js'
 
 // QUERY
@@ -40,7 +40,7 @@ async function register(parent, { user_input }) {
     salt
   })
 
-  UserService.sendEmailVerification(user.user_id)
+  UserService.sendEmailVerification(user.id)
 
   return user
 }
@@ -80,6 +80,17 @@ async function sendEmailVerification(parent, {}, ctx) {
   UserService.sendEmailVerification(ctx.user_id)
 
   return 'Email verification successfully sent!'
+}
+
+async function verifyEmail(parent, { token }) {
+  const user = await UserModel.findOne({
+    verification_token: token
+  })
+  return await UserModel.findByIdAndUpdate(
+    ctx.user_id,
+    { $set: user_input },
+    { new: true }
+  ).lean()
 }
 
 const Query = {
