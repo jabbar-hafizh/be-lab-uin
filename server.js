@@ -7,7 +7,7 @@ import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHt
 import cors from 'cors'
 import express, { json, urlencoded } from 'express'
 import { applyMiddleware } from 'graphql-middleware'
-import { makeExecutableSchema } from 'graphql-tools'
+import { makeExecutableSchema } from '@graphql-tools/schema'
 import http from 'http'
 
 import { connectToDatabase } from './connection.js'
