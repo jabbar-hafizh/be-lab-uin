@@ -210,6 +210,16 @@ async function createUpdateTest(parent, { _id, test_input }, ctx) {
 }
 
 async function deleteTest(parent, { _id }) {
+  const test = await TestModel.findById(_id).lean()
+
+  if (test?.test_parameters?.length) {
+    await TestParameterModel.deleteMany({ _id: { $in: test.test_parameters } })
+  }
+
+  if (test?.samples?.length) {
+    await SampleModel.deleteMany({ _id: { $in: test.samples } })
+  }
+
   return await TestModel.findByIdAndDelete(_id).lean()
 }
 
