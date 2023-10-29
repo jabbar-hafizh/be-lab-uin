@@ -1,7 +1,7 @@
 const typeDefs = `#graphql
   extend type Query {
     getOneTest(_id: ID): Test
-    getAllTests: [Test]
+    getAllTests(filter: TestFilterInput): [Test]
   }
 
   extend type Mutation {
@@ -54,6 +54,10 @@ const typeDefs = `#graphql
     remark: String
     updated_by: User
     date: String
+  }
+
+  input TestFilterInput {
+    current_status: EnumTestCurrentStatus
   }
 
   enum EnumTestSampleType {

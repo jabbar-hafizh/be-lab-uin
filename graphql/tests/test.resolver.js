@@ -6,8 +6,10 @@ import TestParameterModel from '../test_parameters/test_parameter.model.js'
 import TestModel from './test.model.js'
 
 // QUERY
-async function getAllTests(parent) {
-  const query = {}
+async function getAllTests(parent, { filter }, ctx) {
+  const query = {
+    $and: []
+  }
   const aggregateQuery = [
     { $match: query },
     {
@@ -31,8 +33,26 @@ async function getAllTests(parent) {
           $multiply: ['$unit_price', '$sample_quantity']
         }
       }
+    },
+    {
+      $sort: { createdAt: -1 }
     }
   ]
+
+  const user_logged_in = await UserModel.findById(ctx.user_id).lean()
+
+  if (user_logged_in?.roles?.length && user_logged_in.roles.includes('Umum')) {
+    query.$and.push({
+      buyer: new mongoose.Types.ObjectId(ctx.user_id)
+    })
+  }
+
+  if (filter) {
+    if (filter.current_status) {
+      query.$and.push({ current_status: filter.current_status })
+    }
+  }
+
   const tests = await TestModel.aggregate(aggregateQuery)
 
   return tests
