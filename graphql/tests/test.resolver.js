@@ -169,6 +169,36 @@ async function createUpdateTest(parent, { _id, test_input }, ctx) {
       )
     }
 
+    const test_parameter_ids = []
+    if (test_input?.test_parameters?.length) {
+      await TestParameterModel.deleteMany({ _id: { $in: test.test_parameters } })
+
+      for (const each_test_parameter of test_input.test_parameters) {
+        const test_parameter = await TestParameterModel.create(each_test_parameter)
+        test_parameter_ids.push(test_parameter._id)
+      }
+    }
+
+    const sample_ids = []
+    if (test_input?.samples?.length) {
+      await SampleModel.deleteMany({ _id: { $in: test.samples } })
+
+      for (const [each_sample_index, each_sample] of test_input.samples.entries()) {
+        each_sample.lab_label = `${test.id_test}-${String(each_sample_index + 1)}`
+        each_sample.results = []
+        for (const each_test_parameter_id of test_parameter_ids) {
+          each_sample.results.push({
+            test_parameter: each_test_parameter_id
+          })
+        }
+        const sample = await SampleModel.create(each_sample)
+        sample_ids.push(sample._id)
+      }
+    }
+
+    test_input.samples = sample_ids
+    test_input.test_parameters = test_parameter_ids
+
     test = await TestModel.findByIdAndUpdate(
       _id,
       { $set: test_input },
