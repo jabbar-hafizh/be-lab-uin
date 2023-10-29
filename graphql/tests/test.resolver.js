@@ -49,7 +49,7 @@ async function getAllTests(parent, { filter }, ctx) {
   }
 
   if (filter) {
-    if (filter.current_statuses) {
+    if (filter?.current_statuses?.length) {
       query.$and.push({ current_status: { $in: filter.current_statuses } })
     }
   }
