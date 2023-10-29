@@ -57,7 +57,7 @@ const typeDefs = `#graphql
   }
 
   input TestFilterInput {
-    current_status: EnumTestCurrentStatus
+    current_statuses: [EnumTestCurrentStatus]
   }
 
   enum EnumTestSampleType {
