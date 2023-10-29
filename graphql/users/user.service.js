@@ -69,7 +69,7 @@ async function sendEmailResetPassword(email) {
   mailOptions.toId = user._id
   mailOptions.requiredParams = {
     fullname: user.fullname,
-    email_reset_password_url: `${process.env.FE_URL}/check-token-reset-password?token=${reset_password_token}`
+    email_reset_password_url: `${process.env.FE_URL}/reset-password?token=${reset_password_token}`
   }
 
   sendEmail(mailOptions, async function (err) {

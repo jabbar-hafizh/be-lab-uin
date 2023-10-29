@@ -1,4 +1,5 @@
 import moment from 'moment/moment.js'
+import mongoose from 'mongoose'
 
 import SampleModel from '../samples/sample.model.js'
 import TestParameterModel from '../test_parameters/test_parameter.model.js'
@@ -6,11 +7,69 @@ import TestModel from './test.model.js'
 
 // QUERY
 async function getAllTests(parent) {
-  return await TestModel.find().lean()
+  const query = {}
+  const aggregateQuery = [
+    { $match: query },
+    {
+      $lookup: {
+        from: 'test_parameters',
+        localField: 'test_parameters',
+        foreignField: '_id',
+        as: 'test_parameters_populate'
+      }
+    },
+    {
+      $addFields: {
+        unit_price: {
+          $sum: '$test_parameters_populate.price'
+        }
+      }
+    },
+    {
+      $addFields: {
+        total_price: {
+          $multiply: ['$unit_price', '$sample_quantity']
+        }
+      }
+    }
+  ]
+  const tests = await TestModel.aggregate(aggregateQuery)
+
+  return tests
 }
 
 async function getOneTest(parent, { _id }) {
-  return await TestModel.findById(_id).lean()
+  const query = {
+    $and: [{ _id: new mongoose.Types.ObjectId(_id) }]
+  }
+  const aggregateQuery = [
+    { $match: query },
+    {
+      $lookup: {
+        from: 'test_parameters',
+        localField: 'test_parameters',
+        foreignField: '_id',
+        as: 'test_parameters_populate'
+      }
+    },
+    {
+      $addFields: {
+        unit_price: {
+          $sum: '$test_parameters_populate.price'
+        }
+      }
+    },
+    {
+      $addFields: {
+        total_price: {
+          $multiply: ['$unit_price', '$sample_quantity']
+        }
+      }
+    }
+  ]
+  const tests = await TestModel.aggregate(aggregateQuery)
+
+  return tests?.length ? tests[0] : null
 }
 
 // MUTATION

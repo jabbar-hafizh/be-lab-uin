@@ -123,7 +123,7 @@ async function editMe(parent, { user_input }, ctx) {
 }
 
 async function sendEmailVerification(parent, {}, ctx) {
-  UserService.sendEmailVerification(ctx.user_id)
+  await UserService.sendEmailVerification(ctx.user_id)
 
   return 'Email verification successfully sent!'
 }
@@ -155,7 +155,7 @@ async function verifyEmail(parent, { token }) {
 }
 
 async function sendEmailResetPassword(parent, { email }) {
-  UserService.sendEmailResetPassword(email)
+  await UserService.sendEmailResetPassword(email)
 
   return 'Email reset password successfully sent!'
 }
