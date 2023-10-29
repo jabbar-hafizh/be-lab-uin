@@ -63,6 +63,32 @@ async function createUpdateTest(parent, { _id, test_input }, ctx) {
 
     test = await TestModel.create(test_input)
   } else {
+    test = await TestModel.findById(_id).lean()
+
+    if (!test) throw new Error('Test Not Found!')
+
+    if (test_input.current_status && test_input.current_status !== test.current_status) {
+      await TestModel.findByIdAndUpdate(
+        test._id,
+        {
+          $push: {
+            histories: {
+              $each: [
+                {
+                  status: test_input.current_status,
+                  updated_by: ctx.user_id,
+                  date: moment().format('DD-MM-YYYY HH:mm')
+                }
+              ]
+            }
+          }
+        },
+        {
+          new: true
+        }
+      )
+    }
+
     test = await TestModel.findByIdAndUpdate(
       _id,
       { $set: test_input },
