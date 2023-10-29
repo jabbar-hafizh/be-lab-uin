@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 
 import SampleModel from '../samples/sample.model.js'
 import TestParameterModel from '../test_parameters/test_parameter.model.js'
+import UserModel from '../users/user.model.js'
 import TestModel from './test.model.js'
 
 // QUERY
