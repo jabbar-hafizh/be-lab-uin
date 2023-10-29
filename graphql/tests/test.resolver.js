@@ -9,7 +9,7 @@ import TestModel from './test.model.js'
 // QUERY
 async function getAllTests(parent, { filter }, ctx) {
   const query = {
-    $and: []
+    $and: [{ _id: { $ne: null } }]
   }
   const aggregateQuery = [
     { $match: query },
