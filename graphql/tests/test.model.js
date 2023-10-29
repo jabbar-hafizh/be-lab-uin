@@ -88,7 +88,8 @@ const testSchema = new Schema(
     buyer: {
       type: Schema.ObjectId,
       ref: 'user'
-    }
+    },
+    LHU_document_url: { type: String }
   },
   {
     timestamps: true,

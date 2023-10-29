@@ -6,6 +6,7 @@ const typeDefs = `#graphql
 
   extend type Mutation {
     createUpdateTest(_id: ID, test_input: TestInput): Test
+    deleteTest(_id: ID!): Test
   }
 
   input TestInput {
@@ -21,6 +22,8 @@ const typeDefs = `#graphql
     korbid: ID
     dekan: ID
     buyer: ID
+    LHU_document_url: String
+    ka_plt: ID
   }
 
   type Test {
@@ -40,6 +43,8 @@ const typeDefs = `#graphql
     korbid: User
     dekan: User
     buyer: User
+    LHU_document_url: String
+    ka_plt: User
     createdAt: String
     updatedAt: String
   }
@@ -53,7 +58,7 @@ const typeDefs = `#graphql
 
   enum EnumTestSampleType {
     cair
-    padar
+    padat
   }
 
   enum EnumTestPaymentStatus {

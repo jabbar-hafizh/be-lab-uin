@@ -158,6 +158,10 @@ async function createUpdateTest(parent, { _id, test_input }, ctx) {
   return test
 }
 
+async function deleteTest(parent, { _id }) {
+  return await TestModel.findByIdAndDelete(_id).lean()
+}
+
 // LOADER
 async function korbid(parent, args, context) {
   if (parent.korbid) {
@@ -207,6 +211,14 @@ async function updated_by(parent, args, context) {
   return null
 }
 
+async function ka_plt(parent, args, context) {
+  if (parent.ka_plt) {
+    return await context.loaders.UserLoader.load(parent.ka_plt)
+  }
+
+  return null
+}
+
 const Query = {
   getAllTests,
   getOneTest
@@ -221,7 +233,8 @@ const Test = {
   dekan,
   buyer,
   samples,
-  test_parameters
+  test_parameters,
+  ka_plt
 }
 
 const TestHistory = {
