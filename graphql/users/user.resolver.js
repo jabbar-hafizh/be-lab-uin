@@ -194,6 +194,7 @@ async function resetPassword(parent, { new_password, token }) {
     },
     {
       $set: {
+        salt,
         password: encrypted_password
       }
     },

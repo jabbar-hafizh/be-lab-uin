@@ -15,8 +15,6 @@ const typeDefs = `#graphql
     sample_type: EnumTestSampleType
     samples: [SampleInput]
     test_parameters: [TestParameterInput]
-    unit_price: Int
-    total_price: Int
     payment_status: EnumTestPaymentStatus
     sample_status: EnumTestSampleStatus
     current_status: EnumTestCurrentStatus
