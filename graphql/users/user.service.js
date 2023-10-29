@@ -32,7 +32,7 @@ async function sendEmailVerification(user_id) {
   mailOptions.toId = user._id
   mailOptions.requiredParams = {
     fullname: user.fullname,
-    email_verification_url: `${process.env.FE_URL}/verfify-email?token=${verification_token}`
+    email_verification_url: `${process.env.FE_URL}/verify-email?token=${verification_token}`
   }
 
   sendEmail(mailOptions, async function (err) {
