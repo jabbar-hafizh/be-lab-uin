@@ -225,7 +225,8 @@ const Query = {
 }
 
 const Mutation = {
-  createUpdateTest
+  createUpdateTest,
+  deleteTest
 }
 
 const Test = {
