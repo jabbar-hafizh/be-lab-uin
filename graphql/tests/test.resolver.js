@@ -171,8 +171,6 @@ async function createUpdateTest(parent, { _id, test_input }, ctx) {
 
     const test_parameter_ids = []
     if (test_input?.test_parameters?.length) {
-      await TestParameterModel.deleteMany({ _id: { $in: test.test_parameters } })
-
       for (const each_test_parameter of test_input.test_parameters) {
         if (each_test_parameter._id) {
           await TestParameterModel.findByIdAndUpdate(each_test_parameter._id, {
@@ -183,12 +181,11 @@ async function createUpdateTest(parent, { _id, test_input }, ctx) {
           test_parameter_ids.push(test_parameter._id)
         }
       }
+      await TestParameterModel.deleteMany({ _id: { $in: test.test_parameters } })
     }
 
     const sample_ids = []
     if (test_input?.samples?.length) {
-      await SampleModel.deleteMany({ _id: { $in: test.samples } })
-
       for (const [each_sample_index, each_sample] of test_input.samples.entries()) {
         if (each_sample._id) {
           await SampleModel.findByIdAndUpdate(each_sample._id, {
@@ -206,6 +203,7 @@ async function createUpdateTest(parent, { _id, test_input }, ctx) {
           sample_ids.push(sample._id)
         }
       }
+      await SampleModel.deleteMany({ _id: { $in: test.samples } })
     }
 
     test_input.samples = sample_ids.length ? sample_ids : undefined
