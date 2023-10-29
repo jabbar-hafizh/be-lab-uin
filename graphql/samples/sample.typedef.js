@@ -9,6 +9,7 @@ const typeDefs = `#graphql
   }
 
   input SampleInput {
+    _id: ID
     customer_label: String
     lab_label: String
     results: [SampleResultInput]

@@ -9,6 +9,7 @@ const typeDefs = `#graphql
   }
 
   input TestParameterInput {
+    _id: ID
     test_parameter_name: String
     instrument: ID
     is_measurable: Boolean
