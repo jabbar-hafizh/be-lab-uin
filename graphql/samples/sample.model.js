@@ -12,9 +12,7 @@ const sampleSchema = new Schema(
           ref: 'test_parameter'
         },
         unit_of_measurement: { type: String },
-        result: { type: String },
-        test_date: { type: String },
-        method: { type: String }
+        result: { type: String }
       }
     ]
   },

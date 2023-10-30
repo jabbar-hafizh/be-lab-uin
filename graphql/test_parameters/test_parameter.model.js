@@ -9,7 +9,9 @@ const testParameterSchema = new Schema(
       ref: 'instrument'
     },
     is_measurable: { type: Boolean },
-    price: { type: Number }
+    price: { type: Number },
+    test_date: { type: String },
+    method: { type: String }
   },
   {
     timestamps: true,

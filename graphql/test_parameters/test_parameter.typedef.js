@@ -14,6 +14,8 @@ const typeDefs = `#graphql
     instrument: ID
     is_measurable: Boolean
     price: Float
+    test_date: String
+    method: String
   }
 
   type TestParameter {
@@ -22,6 +24,8 @@ const typeDefs = `#graphql
     instrument: Instrument
     is_measurable: Boolean
     price: Float
+    test_date: String
+    method: String
   }
 `
 
