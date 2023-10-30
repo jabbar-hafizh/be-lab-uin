@@ -19,6 +19,8 @@ const typeDefs = `#graphql
     test_parameter: ID
     unit_of_measurement: String
     result: String
+    test_date: String
+    method: String
   }
 
   type Sample {
@@ -26,6 +28,8 @@ const typeDefs = `#graphql
     customer_label: String
     lab_label: String
     results: [SampleResult]
+    test_date: String
+    method: String
     createdAt: String
     updatedAt: String
   }
