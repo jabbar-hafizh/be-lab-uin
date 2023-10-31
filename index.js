@@ -5,6 +5,7 @@ import { ApolloServer } from '@apollo/server'
 import { expressMiddleware } from '@apollo/server/express4'
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer'
 import { makeExecutableSchema } from '@graphql-tools/schema'
+import bodyParser from 'body-parser'
 import cors from 'cors'
 import express, { json, urlencoded } from 'express'
 import { applyMiddleware } from 'graphql-middleware'
@@ -13,16 +14,21 @@ import http from 'http'
 import { connectToDatabase } from './connection.js'
 import { resolvers, typeDefs } from './graphql/index.js'
 import { loaders } from './loaders/index.js'
+import authMiddleware from './middlewares/auth-middleware.js'
+import rest_api from './rest_api/routes.js'
 
 connectToDatabase()
-
-import authMiddleware from './middlewares/auth-middleware.js'
 
 const app = express()
 
 app.use(cors())
+app.use(bodyParser.json({ limit: '50mb' }))
 app.use(json())
 app.use(urlencoded({ extended: false }))
+app.use(express.static(process.cwd() + '/public'))
+app.disable('x-powered-by')
+
+rest_api(app)
 
 const httpServer = http.createServer(app)
 const executableSchema = makeExecutableSchema({ typeDefs, resolvers })
