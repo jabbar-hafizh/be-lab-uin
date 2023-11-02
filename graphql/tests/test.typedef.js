@@ -24,6 +24,7 @@ const typeDefs = `#graphql
     buyer: ID
     LHU_document_url: String
     ka_plt: ID
+    payment_file: String
   }
 
   type Test {
@@ -45,6 +46,7 @@ const typeDefs = `#graphql
     buyer: User
     LHU_document_url: String
     ka_plt: User
+    payment_file: String
     createdAt: String
     updatedAt: String
   }

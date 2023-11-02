@@ -89,7 +89,8 @@ const testSchema = new Schema(
       type: Schema.ObjectId,
       ref: 'user'
     },
-    LHU_document_url: { type: String }
+    LHU_document_url: { type: String },
+    payment_file: { type: String }
   },
   {
     timestamps: true,
