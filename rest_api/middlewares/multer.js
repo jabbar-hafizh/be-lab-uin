@@ -15,9 +15,18 @@ const storage = diskStorage({
   }
 })
 
+async function fileFilter(req, file, callback) {
+  if (['image/jpeg', 'image/jpg', 'image/png'].includes(file.mimetype.toLowerCase())) {
+    callback(null, true) // Accept the file
+  } else {
+    callback('Invalid file type. Only JPEG, JPG, or PNG files are allowed.', false)
+  }
+}
+
 const uploadFile = multer({
   storage: storage,
-  limits: { fileSize: maxSize }
+  limits: { fileSize: maxSize },
+  fileFilter
 }).single('file')
 
 // create the exported middleware object

@@ -7,8 +7,8 @@ const upload = async (req, res) => {
       return res.status(400).send({ message: 'Upload a file please!' })
     }
     res.status(200).send({ message: 'OK', data: req.file.originalname })
-  } catch (err) {
-    res.status(500).send(err)
+  } catch (error) {
+    res.status(500).send({ error })
   }
 }
 
