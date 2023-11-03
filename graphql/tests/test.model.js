@@ -90,7 +90,8 @@ const testSchema = new Schema(
       ref: 'user'
     },
     LHU_document_url: { type: String },
-    payment_file: { type: String }
+    payment_file: { type: String },
+    no_letter: { type: String }
   },
   {
     timestamps: true,

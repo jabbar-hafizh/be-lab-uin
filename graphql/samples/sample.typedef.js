@@ -19,6 +19,7 @@ const typeDefs = `#graphql
     test_parameter: ID
     unit_of_measurement: String
     result: String
+    grafik_file: String
   }
 
   type Sample {
@@ -34,6 +35,7 @@ const typeDefs = `#graphql
     test_parameter: TestParameter
     unit_of_measurement: String
     result: String
+    grafik_file: String
   }
 `
 
