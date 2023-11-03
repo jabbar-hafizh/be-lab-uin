@@ -96,7 +96,7 @@ async function login(parent, { email, password }) {
   const matched = compare(password, user.password, user.salt)
   if (!matched) throw new Error('Credential Not Valid')
 
-  const token = getToken({ _id: user._id, email: user.email }, '1d')
+  const token = getToken({ _id: user._id, email: user.email }, '7d')
 
   return {
     token,
