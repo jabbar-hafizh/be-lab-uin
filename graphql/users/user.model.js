@@ -21,7 +21,7 @@ const userSchema = new Schema(
           'Super_Admin_Layanan_Pengujian',
           'Admin_Pemesanan',
           'Analis',
-          'Penyedia',
+          'Penyelia',
           'Korbid_Pengujian',
           'Kepala_PLT',
           'Super_Admin_Stock_Opname',

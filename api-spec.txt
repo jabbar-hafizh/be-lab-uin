@@ -24,7 +24,7 @@ EnumUserRole
   Super Admin Layanan Pengujian
   Admin Pemesanan
   Analis
-  Penyedia
+  Penyelia
   Korbid Pengujian
   Kepala PLT
   Super Admin Stock Opname
@@ -204,3 +204,42 @@ PaginationResponse {
   total_pages: number
   data: Array<any>
 }
+
+
+
+MoM 02-12-2023
+- Typo Penyelia to penyelia
+- Update API createUpdateTest to handle Test.histories.status
+  - MUST equal to Test.current_status
+- Add field letter_no into Test
+
+
+Stock Opname
+
+StockOpname
+- laboratorium_type: Agripa, Tisimat, Tambang, Pengujian
+- name
+- remaining_ingredient
+- unit_of_ingredient
+- piece
+- unit_of_piece
+- spesification
+- expired_date 'DD-MM-YYYY HH:mm'
+- created_by User
+
+StockOpnameHistory
+- stock_opname
+- user
+- date
+
+CRUD
+
+- Mutation updateStockOpname
+  - MUST re-calculate remaining_ingredient when piece is updated
+- Mutation createStockOpnameHistory
+  - MUST re-calculate StockOpanem.remaining_ingredient
+- Mutation deleteStockOpnameHistory
+  - MUST re-calculate StockOpanem.remaining_ingredient
+- Add filter into Query getStockOpnames
+  - laboratorium_type
+  - date_range: DD-MM-YYYY,DD-MM-YYYY
