@@ -135,7 +135,7 @@ async function createUpdateTest(parent, { _id, test_input }, ctx) {
     test_input.buyer = ctx.user_id
     test_input.histories = [
       {
-        status: 'Draft',
+        status: test_input.current_status || 'Draft',
         updated_by: ctx.user_id,
         date: moment().format('DD-MM-YYYY HH:mm')
       }
