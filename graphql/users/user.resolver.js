@@ -11,13 +11,16 @@ import UserService from './user.service.js'
 // QUERY
 async function getAllUsers(parent, { filter }, ctx) {
   const query = {
-    $and: [{ is_active: true }]
+    $and: [{ _id: { $ne: null } }]
   }
   const aggregateQuery = [{ $match: query }]
 
   if (filter) {
     if (filter.roles?.length) {
       query.$and.push({ roles: { $in: filter.roles } })
+    }
+    if (typeof filter.is_active === 'boolean') {
+      query.$and.push({ is_active: filter.is_active })
     }
   }
 
