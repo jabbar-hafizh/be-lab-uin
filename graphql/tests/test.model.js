@@ -91,7 +91,11 @@ const testSchema = new Schema(
     },
     LHU_document_url: { type: String },
     payment_file: { type: String },
-    no_letter: { type: String }
+    no_letter: { type: String },
+    ka_plt: {
+      type: Schema.ObjectId,
+      ref: 'user'
+    }
   },
   {
     timestamps: true,
