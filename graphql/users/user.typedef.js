@@ -33,6 +33,7 @@ const typeDefs = `#graphql
     signature_image_path: String
     email: String
     password: String
+    is_active: Boolean
   }
 
   type User {
