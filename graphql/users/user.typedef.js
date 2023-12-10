@@ -80,6 +80,7 @@ const typeDefs = `#graphql
     Admin_Stock_Opname_Tisimat
     Admin_Stock_Opname_Tambang
     Admin_Stock_Opname_Pengujian
+    Dekan
   }
 `
 

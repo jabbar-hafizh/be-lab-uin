@@ -28,7 +28,8 @@ const userSchema = new Schema(
           'Admin_Stock_Opname_Agripa',
           'Admin_Stock_Opname_Tisimat',
           'Admin_Stock_Opname_Tambang',
-          'Admin_Stock_Opname_Pengujian'
+          'Admin_Stock_Opname_Pengujian',
+          'Dekan'
         ]
       }
     ],
