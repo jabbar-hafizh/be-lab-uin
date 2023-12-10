@@ -157,7 +157,8 @@ async function createUpdateTest(parent, { _id, test_input }, ctx) {
                 {
                   status: test_input.current_status,
                   updated_by: ctx.user_id,
-                  date: moment().format('DD-MM-YYYY HH:mm')
+                  date: moment().format('DD-MM-YYYY HH:mm'),
+                  remark: test_input.remark
                 }
               ]
             }
