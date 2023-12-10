@@ -9,8 +9,19 @@ import UserModel from './user.model.js'
 import UserService from './user.service.js'
 
 // QUERY
-async function getAllUsers(parent, {}, ctx) {
-  return await UserModel.find().lean()
+async function getAllUsers(parent, { filter }, ctx) {
+  const query = {
+    $and: [{ is_active: true }]
+  }
+  const aggregateQuery = [{ $match: query }]
+
+  if (filter) {
+    if (filter.roles?.length) {
+      query.$and.push({ roles: { $in: filter.roles } })
+    }
+  }
+
+  return await UserModel.aggregate(aggregateQuery)
 }
 
 async function getOneUser(parent, { _id }) {

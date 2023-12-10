@@ -1,7 +1,7 @@
 const typeDefs = `#graphql
   extend type Query {
     getOneUser(_id: ID): User
-    getAllUsers: [User]
+    getAllUsers(filter: UserFilterInput): [User]
     getMe: User
   }
 
@@ -59,6 +59,10 @@ const typeDefs = `#graphql
   type Login {
     token: String
     user: User
+  }
+
+  input UserFilterInput {
+    roles: [EnumUserRole]
   }
 
   enum EnumUserRole {

@@ -41,7 +41,7 @@ const userSchema = new Schema(
     verification_token: { type: String },
     reset_password_time: { type: String },
     reset_password_token: { type: String },
-    is_active: { type: Boolean }
+    is_active: { type: Boolean, default: true }
   },
   {
     timestamps: true,
