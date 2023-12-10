@@ -20,7 +20,11 @@ async function getAllUsers(parent, { filter }, ctx) {
       query.$and.push({ roles: { $in: filter.roles } })
     }
     if (typeof filter.is_active === 'boolean') {
-      query.$and.push({ is_active: filter.is_active })
+      if (filter.is_active) {
+        query.$and.push({ is_active: true })
+      } else {
+        query.$and.push({ is_active: { $ne: true } })
+      }
     }
   }
 

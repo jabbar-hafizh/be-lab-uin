@@ -63,6 +63,7 @@ const typeDefs = `#graphql
 
   input UserFilterInput {
     roles: [EnumUserRole]
+    is_active: Boolean
   }
 
   enum EnumUserRole {
