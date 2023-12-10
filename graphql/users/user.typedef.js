@@ -53,6 +53,7 @@ const typeDefs = `#graphql
     token: String
     createdAt: String
     updatedAt: String
+    is_active: Boolean
   }
 
   type Login {
