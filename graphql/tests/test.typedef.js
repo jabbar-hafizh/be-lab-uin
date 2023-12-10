@@ -26,6 +26,7 @@ const typeDefs = `#graphql
     ka_plt: ID
     payment_file: String
     no_letter: String
+    remark: String
   }
 
   type Test {
