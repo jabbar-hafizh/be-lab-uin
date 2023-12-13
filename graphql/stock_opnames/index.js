@@ -1,7 +1,7 @@
-import StockOpnameLoader from './stock_opnames.loader.js'
-import StockOpnameModel from './stock_opnames.model.js'
-import resolvers from './stock_opnames.resolver.js'
-import typeDefs from './stock_opnames.typedef.js'
+import StockOpnameLoader from './stock_opname.loader.js'
+import StockOpnameModel from './stock_opname.model.js'
+import resolvers from './stock_opname.resolver.js'
+import typeDefs from './stock_opname.typedef.js'
 
 export default {
   typeDefs,

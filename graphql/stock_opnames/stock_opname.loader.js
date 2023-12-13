@@ -1,6 +1,6 @@
 import DataLoader from 'dataloader'
 
-import StockOpnameModel from './stock_opnames.model.js'
+import StockOpnameModel from './stock_opname.model.js'
 
 const batchStockOpnames = async stockOpnameIds => {
   const stock_opnames = await StockOpnameModel.find({ _id: { $in: stockOpnameIds } }).lean()

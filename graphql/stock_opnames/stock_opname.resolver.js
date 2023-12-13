@@ -1,5 +1,4 @@
-import UserModel from '../users/user.model.js'
-import StockOpnameModel from './stock_opnames.model.js'
+import StockOpnameModel from './stock_opname.model.js'
 
 // QUERY
 async function getAllStockOpnames(parent, { filter }, ctx) {
@@ -14,7 +13,7 @@ async function getAllStockOpnames(parent, { filter }, ctx) {
     }
   }
 
-  return await UserModel.aggregate(aggregateQuery)
+  return await StockOpnameModel.aggregate(aggregateQuery)
 }
 
 async function getOneStockOpname(parent, { _id }) {

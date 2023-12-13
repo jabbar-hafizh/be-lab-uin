@@ -1,6 +1,14 @@
 import dotenv from 'dotenv'
 dotenv.config()
 
+// Load Moment.js and Moment Timezone libraries (make sure they're included in your project)
+import moment from 'moment-timezone'
+;('moment-timezone')
+
+// Set the global default time zone to Asia/Jakarta
+const jakartaTimezone = 'Asia/Jakarta'
+moment.tz.setDefault(jakartaTimezone)
+
 import { ApolloServer } from '@apollo/server'
 import { expressMiddleware } from '@apollo/server/express4'
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer'
