@@ -27,9 +27,18 @@ async function createStockOpname(parent, { stock_opname_input }, ctx) {
 }
 
 async function updateStockOpname(parent, { _id, stock_opname_input }, ctx) {
-  return await StockOpnameModel.findByIdAndUpdate(_id, {
-    $set: stock_opname_input
-  }).lean()
+  const stock_opname = await StockOpnameModel.findById(_id).lean()
+  if (stock_opname_input.piece > stock_opname.piece) {
+    stock_opname_input.remaining_ingredient =
+      stock_opname.remaining_ingredient + (stock_opname_input.piece - stock_opname.piece)
+  }
+  return await StockOpnameModel.findByIdAndUpdate(
+    _id,
+    {
+      $set: stock_opname_input
+    },
+    { new: true }
+  ).lean()
 }
 
 async function deleteStockOpname(parent, { _id }) {

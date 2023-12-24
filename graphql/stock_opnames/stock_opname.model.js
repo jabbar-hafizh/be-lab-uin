@@ -8,10 +8,10 @@ const stockOpnameSchema = new Schema(
       enum: ['Agripa', 'Tisimat', 'Tambang', 'Pengujian']
     },
     name: { type: String },
-    remaining_ingredient: { type: Number },
-    unit_of_ingredient: { type: String },
-    piece: { type: Number },
-    unit_of_piece: { type: String },
+    remaining_ingredient: { type: Number }, // sisa bahan
+    unit_of_ingredient: { type: String }, // satuan sisa bahan
+    piece: { type: Number }, // kemasan
+    unit_of_piece: { type: String }, // satuan kemasan
     spesification: { type: String },
     expired_date: { type: String },
     created_by: {
