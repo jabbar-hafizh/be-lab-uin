@@ -30,7 +30,7 @@ async function updateStockOpname(parent, { _id, stock_opname_input }, ctx) {
   const stock_opname = await StockOpnameModel.findById(_id).lean()
   if (stock_opname_input.piece > stock_opname.piece) {
     stock_opname_input.remaining_ingredient =
-      stock_opname.remaining_ingredient + (stock_opname_input.piece - stock_opname.piece)
+      stock_opname.remaining_ingredient || 0 + (stock_opname_input.piece - stock_opname.piece)
   }
   return await StockOpnameModel.findByIdAndUpdate(
     _id,
