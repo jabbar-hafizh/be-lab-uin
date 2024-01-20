@@ -9,7 +9,6 @@ const stockOpnameSchema = new Schema(
     },
     name: { type: String },
     remaining_ingredient: { type: Number }, // sisa bahan
-    unit_of_ingredient: { type: String }, // satuan sisa bahan
     piece: { type: Number }, // kemasan
     unit_of_piece: { type: String }, // satuan kemasan
     spesification: { type: String },

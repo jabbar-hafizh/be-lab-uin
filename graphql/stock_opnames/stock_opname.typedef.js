@@ -14,7 +14,6 @@ const typeDefs = `#graphql
     laboratorium_type: EnumLaboratoriumType
     name: String
     remaining_ingredient: Int
-    unit_of_ingredient: String
     piece: Int
     unit_of_piece: String
     spesification: String
@@ -27,7 +26,6 @@ const typeDefs = `#graphql
     laboratorium_type: EnumLaboratoriumType
     name: String
     remaining_ingredient: Int
-    unit_of_ingredient: String
     piece: Int
     unit_of_piece: String
     spesification: String
