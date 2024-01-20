@@ -33,6 +33,8 @@ const typeDefs = `#graphql
     spesification: String
     expired_date: String
     created_by: User
+    createdAt: String
+    updatedAt: String
   }
 
   input StockOpnameFilterInput {
