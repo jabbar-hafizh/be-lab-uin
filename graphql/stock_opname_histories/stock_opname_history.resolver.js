@@ -42,16 +42,22 @@ async function getOneStockOpnameHistory(parent, { _id }) {
 
 // MUTATION
 async function createStockOpnameHistory(parent, { stock_opname_history_input }) {
-  // const stock_opname = await StockOpnameModel.findByIdAndUpdate(
-  //   stock_opname_history_input.stock_opname,
-  //   {
-  //     $set: {
-  //       ...stock_opname_history_input,
-  //       remaining_ingredient: 0
-  //     }
-  //   },
-  //   { new: true }
-  // ).lean()
+  const stock_opname = await StockOpnameModel.findById(
+    stock_opname_history_input.stock_opname
+  ).lean()
+  if (stock_opname_history_input.number > stock_opname.remaining_ingredient || 0) {
+    return new Error('Cannot use more than remaining ingredient!')
+  }
+  await StockOpnameModel.findByIdAndUpdate(
+    stock_opname_history_input.stock_opname,
+    {
+      $set: {
+        remaining_ingredient:
+          stock_opname.remaining_ingredient - stock_opname_history_input.number
+      }
+    },
+    { new: true }
+  ).lean()
   return await StockOpnameHistoryModel.create(stock_opname_history_input)
 }
 
