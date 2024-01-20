@@ -1,5 +1,6 @@
 import moment from 'moment-timezone'
 
+import mongoose from 'mongoose'
 import StockOpnameModel from '../stock_opnames/stock_opname.model.js'
 import StockOpnameHistoryModel from './stock_opname_history.model.js'
 
@@ -29,6 +30,11 @@ async function getAllStockOpnameHistories(parent, { filter }, ctx) {
           $gt: moment(filter.start_date, 'DD-MM-YYYY').startOf('day').toDate(),
           $lt: moment(filter.end_date, 'DD-MM-YYYY').endOf('day').toDate()
         }
+      })
+    }
+    if (filter.stock_opname_id) {
+      query.$and.push({
+        stock_opname: new mongoose.Types.ObjectId(filter.stock_opname_id)
       })
     }
   }

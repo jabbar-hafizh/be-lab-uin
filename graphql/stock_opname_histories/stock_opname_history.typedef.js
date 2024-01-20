@@ -29,6 +29,7 @@ const typeDefs = `#graphql
   input StockOpnameHistoryFilterInput {
     start_date: String
     end_date: String
+    stock_opname_id: ID
   }
 `
 
