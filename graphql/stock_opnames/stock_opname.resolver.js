@@ -9,7 +9,7 @@ async function getAllStockOpnames(parent, { filter }, ctx) {
 
   if (filter) {
     if (filter.laboratorium_type) {
-      query.$and.push({ laboratorium_type: filter.laboratorium_type })
+      query.$and.push({ laboratorium_type: { $in: filter.laboratorium_type } })
     }
   }
 
