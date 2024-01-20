@@ -1,5 +1,6 @@
 import moment from 'moment-timezone'
 
+import StockOpnameModel from '../stock_opnames/stock_opname.model.js'
 import StockOpnameHistoryModel from './stock_opname_history.model.js'
 
 // QUERY
@@ -12,7 +13,7 @@ async function getAllStockOpnameHistories(parent, { filter }, ctx) {
       $addFields: {
         date_formatted: {
           $dateFromString: {
-            dateString: '$date',
+            dateString: '$date'
             // format: '%d-%m-%Y'
           }
         }
@@ -41,6 +42,16 @@ async function getOneStockOpnameHistory(parent, { _id }) {
 
 // MUTATION
 async function createStockOpnameHistory(parent, { stock_opname_history_input }) {
+  // const stock_opname = await StockOpnameModel.findByIdAndUpdate(
+  //   stock_opname_history_input.stock_opname,
+  //   {
+  //     $set: {
+  //       ...stock_opname_history_input,
+  //       remaining_ingredient: 0
+  //     }
+  //   },
+  //   { new: true }
+  // ).lean()
   return await StockOpnameHistoryModel.create(stock_opname_history_input)
 }
 

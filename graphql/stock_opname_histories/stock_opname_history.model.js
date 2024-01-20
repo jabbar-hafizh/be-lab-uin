@@ -12,6 +12,9 @@ const stockOpnameHistorySchema = new Schema(
     },
     date: {
       type: String
+    },
+    number: {
+      type: Number
     }
   },
   {
