@@ -1,3 +1,5 @@
+import mongoose from 'mongoose'
+import StockOpnameHistoryModel from '../stock_opname_histories/stock_opname_history.model.js'
 import StockOpnameModel from './stock_opname.model.js'
 
 // QUERY
@@ -27,11 +29,28 @@ async function createStockOpname(parent, { stock_opname_input }, ctx) {
 }
 
 async function updateStockOpname(parent, { _id, stock_opname_input }, ctx) {
-  const stock_opname = await StockOpnameModel.findById(_id).lean()
-  if (stock_opname_input.piece > stock_opname.piece) {
+  const stock_opname_history = await StockOpnameHistoryModel.aggregate([
+    {
+      $match: {
+        stock_opname: new mongoose.Types.ObjectId(_id)
+      }
+    },
+    {
+      $group: {
+        _id: null,
+        total: { $sum: '$number' }
+      }
+    }
+  ])
+  const total_used_stock_opname = stock_opname_history[0]?.total || 0
+
+  if (stock_opname_input.piece >= total_used_stock_opname) {
     stock_opname_input.remaining_ingredient =
-      stock_opname.remaining_ingredient || 0 + (stock_opname_input.piece - stock_opname.piece)
+      stock_opname_input.piece - total_used_stock_opname
+  } else {
+    return new Error('Less Than Total Used!')
   }
+
   return await StockOpnameModel.findByIdAndUpdate(
     _id,
     {
