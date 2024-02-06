@@ -14,7 +14,7 @@ const typeDefs = `#graphql
     stock_opname: ID
     user: String
     date: String
-    number: Int
+    number: Float
   }
 
   type StockOpnameHistory {
@@ -23,7 +23,7 @@ const typeDefs = `#graphql
     user: String
     date: String
     date_formatted: Float
-    number: Int
+    number: Float
   }
 
   input StockOpnameHistoryFilterInput {

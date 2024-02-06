@@ -13,8 +13,8 @@ const typeDefs = `#graphql
   input StockOpnameInput {
     laboratorium_type: EnumLaboratoriumType
     name: String
-    remaining_ingredient: Int
-    piece: Int
+    remaining_ingredient: Float
+    piece: Float
     unit_of_piece: String
     spesification: String
     expired_date: String
@@ -25,8 +25,8 @@ const typeDefs = `#graphql
     _id: ID
     laboratorium_type: EnumLaboratoriumType
     name: String
-    remaining_ingredient: Int
-    piece: Int
+    remaining_ingredient: Float
+    piece: Float
     unit_of_piece: String
     spesification: String
     expired_date: String
