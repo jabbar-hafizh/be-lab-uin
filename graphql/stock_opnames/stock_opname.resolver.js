@@ -13,6 +13,9 @@ async function getAllStockOpnames(parent, { filter }, ctx) {
     if (filter?.laboratorium_type?.length) {
       query.$and.push({ laboratorium_type: { $in: filter.laboratorium_type } })
     }
+    if (filter?.not_empty_remaining) {
+      query.$and.push({ remaining_ingredient: { $ne: null } })
+    }
   }
 
   return await StockOpnameModel.aggregate(aggregateQuery)

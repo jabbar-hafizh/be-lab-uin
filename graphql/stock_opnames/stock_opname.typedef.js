@@ -37,6 +37,7 @@ const typeDefs = `#graphql
 
   input StockOpnameFilterInput {
     laboratorium_type: [EnumLaboratoriumType]
+    not_empty_remaining: Boolean
   }
 
   enum EnumLaboratoriumType {
