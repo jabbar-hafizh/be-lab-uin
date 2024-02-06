@@ -30,6 +30,7 @@ const typeDefs = `#graphql
     start_date: String
     end_date: String
     stock_opname_id: ID
+    laboratorium_type: [EnumLaboratoriumType]
   }
 `
 

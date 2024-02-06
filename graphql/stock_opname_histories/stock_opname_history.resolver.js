@@ -37,6 +37,23 @@ async function getAllStockOpnameHistories(parent, { filter }, ctx) {
         stock_opname: new mongoose.Types.ObjectId(filter.stock_opname_id)
       })
     }
+    if (filter?.laboratorium_type?.length) {
+      aggregateQuery.push(
+        {
+          $lookup: {
+            from: 'stock_opnames',
+            localField: 'stock_opname',
+            foreignField: '_id',
+            as: 'stock_opname_lookup'
+          }
+        },
+        {
+          $match: {
+            'stock_opname_lookup.laboratorium_type': { $in: filter.laboratorium_type }
+          }
+        }
+      )
+    }
   }
 
   return await StockOpnameHistoryModel.aggregate(aggregateQuery)
