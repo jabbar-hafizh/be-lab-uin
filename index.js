@@ -23,6 +23,7 @@ import { connectToDatabase } from './connection.js'
 import { resolvers, typeDefs } from './graphql/index.js'
 import { loaders } from './loaders/index.js'
 import authMiddleware from './middlewares/auth-middleware.js'
+import permissionMiddleware from './middlewares/permission-middleware.js'
 import rest_api from './rest_api/routes.js'
 
 connectToDatabase()
@@ -40,7 +41,11 @@ rest_api(app)
 
 const httpServer = http.createServer(app)
 const executableSchema = makeExecutableSchema({ typeDefs, resolvers })
-const protectedSchema = applyMiddleware(executableSchema, authMiddleware)
+const protectedSchema = applyMiddleware(
+  executableSchema,
+  authMiddleware,
+  permissionMiddleware
+)
 
 const server = new ApolloServer({
   schema: protectedSchema,

@@ -25,7 +25,11 @@ const authMiddleware = {
     getOneUser: requireAuth,
     getMe: requireAuth,
     getAllTests: requireAuth,
-    getOneTest: requireAuth
+    getOneTest: requireAuth,
+    getOneStockOpname: requireAuth,
+    getAllStockOpnames: requireAuth,
+    getOneStockOpnameHistory: requireAuth,
+    getAllStockOpnameHistories: requireAuth
   },
   Mutation: {
     updateUser: requireAuth,
@@ -35,7 +39,12 @@ const authMiddleware = {
     createUser: requireAuth,
     createUpdateTest: requireAuth,
     createStockOpnameHistory: requireAuth,
-    createStockOpname: requireAuth
+    createStockOpname: requireAuth,
+    updateStockOpname: requireAuth,
+    deleteStockOpname: requireAuth,
+    createStockOpnameHistory: requireAuth,
+    updateStockOpnameHistory: requireAuth,
+    deleteStockOpnameHistory: requireAuth
   }
 }
 

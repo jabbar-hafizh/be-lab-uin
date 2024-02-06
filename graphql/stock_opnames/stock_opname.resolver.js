@@ -10,7 +10,7 @@ async function getAllStockOpnames(parent, { filter }, ctx) {
   const aggregateQuery = [{ $match: query }]
 
   if (filter) {
-    if (filter.laboratorium_type) {
+    if (filter?.laboratorium_type?.length) {
       query.$and.push({ laboratorium_type: { $in: filter.laboratorium_type } })
     }
   }
