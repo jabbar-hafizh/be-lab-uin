@@ -89,9 +89,39 @@ async function updateStockOpnameHistory(
   { _id, stock_opname_history_input },
   ctx
 ) {
-  return await StockOpnameHistoryModel.findByIdAndUpdate(_id, {
-    $set: stock_opname_history_input
-  }).lean()
+  const stock_opname_history = await StockOpnameHistoryModel.findById(_id)
+    .populate([{ path: 'stock_opname' }])
+    .lean()
+  if (!stock_opname_history) return new Error('Data not found')
+
+  if (
+    stock_opname_history_input.number >
+    (stock_opname_history.stock_opname.remaining_ingredient || 0) +
+      stock_opname_history.number
+  ) {
+    return new Error('Cannot use/update more than remaining ingredient!')
+  }
+
+  await StockOpnameModel.findByIdAndUpdate(
+    stock_opname_history.stock_opname._id,
+    {
+      $set: {
+        remaining_ingredient:
+          (stock_opname_history.stock_opname.remaining_ingredient || 0) +
+          stock_opname_history.number -
+          stock_opname_history_input.number
+      }
+    },
+    { new: true }
+  ).lean()
+
+  return await StockOpnameHistoryModel.findByIdAndUpdate(
+    _id,
+    {
+      $set: stock_opname_history_input
+    },
+    { new: true }
+  ).lean()
 }
 
 async function deleteStockOpnameHistory(parent, { _id }) {
