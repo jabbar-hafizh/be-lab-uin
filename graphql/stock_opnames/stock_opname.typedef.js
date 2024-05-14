@@ -42,9 +42,15 @@ const typeDefs = `#graphql
 
   enum EnumLaboratoriumType {
     Agripa
+    Agribisnis
+    Fisika
+    Kimia
+    Biologi
     Tisimat
     Tambang
     Pengujian
+    Lingkungan
+    Pangan
   }
 `
 
