@@ -5,7 +5,18 @@ const stockOpnameSchema = new Schema(
   {
     laboratorium_type: {
       type: String,
-      enum: ['Agripa', 'Tisimat', 'Tambang', 'Pengujian']
+      enum: [
+        'Agripa',
+        'Tisimat',
+        'Tambang',
+        'Pengujian',
+        'Agribisnis',
+        'Fisika',
+        'Kimia',
+        'Biologi',
+        'Lingkungan',
+        'Pangan'
+      ]
     },
     name: { type: String },
     remaining_ingredient: { type: Number }, // sisa bahan
